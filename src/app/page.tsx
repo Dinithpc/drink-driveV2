@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import DrinkDriveLogo from './logo.svg';
 
 // Simple SVG Icons
 const PhoneIcon = () => (
@@ -23,10 +24,20 @@ const ClockIcon = () => (
   </svg>
 );
 
-const ShieldIcon = () => (
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-  </svg>
+const ShieldIcon = () => ( 
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> 
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /> 
+  </svg> 
+);
+const ShieldIconf = () => (
+  <div className="flex flex-col items-center space-y-2">
+    {/* Logo from public folder */}
+    <img
+      src="/logo3.svg"
+      alt="Drink & Drive Logo"
+      className="w-10 h-auto"
+    />
+  </div>
 );
 
 const UsersIcon = () => (
@@ -136,14 +147,16 @@ export default function DrinkDriveWebsite() {
       setIsScrolled(window.scrollY > 50);
       
       // Trigger animation when stats section is visible
-      const statsSection = document.getElementById('stats-section');
-      if (statsSection && !hasAnimated) {
-        const rect = statsSection.getBoundingClientRect();
-        const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
-        
-        if (isVisible) {
-          setHasAnimated(true);
-          animateCounters();
+      if (currentPage === 'home') {
+        const statsSection = document.getElementById('stats-section');
+        if (statsSection && !hasAnimated) {
+          const rect = statsSection.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+          
+          if (isVisible) {
+            setHasAnimated(true);
+            animateCounters();
+          }
         }
       }
     };
@@ -151,7 +164,20 @@ export default function DrinkDriveWebsite() {
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Check on mount
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasAnimated]);
+  }, [hasAnimated, currentPage]);
+  
+  // Reset animation when returning to home page
+  useEffect(() => {
+    if (currentPage === 'home' && hasAnimated) {
+      setHasAnimated(false);
+      setCounters({
+        stat1: 0,
+        stat2: 0,
+        stat3: 0,
+        stat4: 0
+      });
+    }
+  }, [currentPage]);
 
   const animateCounters = () => {
     const targets = {
@@ -161,8 +187,8 @@ export default function DrinkDriveWebsite() {
       stat4: 2243
     };
     
-    const duration = 2000; // 2 seconds
-    const steps = 60;
+    const duration = 5000; // 5 seconds
+    const steps = 100;
     const interval = duration / steps;
     
     let currentStep = 0;
@@ -171,14 +197,14 @@ export default function DrinkDriveWebsite() {
       currentStep++;
       const progress = currentStep / steps;
       
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      // Easing function for smooth animation (ease-out-cubic)
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
       
       setCounters({
-        stat1: Math.floor(targets.stat1 * easeOutQuart),
-        stat2: Math.floor(targets.stat2 * easeOutQuart),
-        stat3: Math.floor(targets.stat3 * easeOutQuart),
-        stat4: Math.floor(targets.stat4 * easeOutQuart)
+        stat1: Math.floor(targets.stat1 * easeOutCubic),
+        stat2: Math.floor(targets.stat2 * easeOutCubic),
+        stat3: Math.floor(targets.stat3 * easeOutCubic),
+        stat4: Math.floor(targets.stat4 * easeOutCubic)
       });
       
       if (currentStep >= steps) {
@@ -188,7 +214,7 @@ export default function DrinkDriveWebsite() {
     }, interval);
   };
 
-  const formatNumber = (num: { toLocaleString: () => any; }) => {
+  const formatNumber = (num: number) => {
     return num.toLocaleString();
   };
 
@@ -209,10 +235,10 @@ export default function DrinkDriveWebsite() {
   }, [isDark]);
 
   const stats = [
-    { value: '8,747', label: 'Legal Actions (Single Day)', sublabel: 'Dec 2024 Operation' },
-    { value: '251', label: 'DUI Arrests', sublabel: 'In 24 Hours' },
-    { value: '22,967', label: 'Road Accidents', sublabel: 'YTD 2024' },
-    { value: '2,243', label: 'Fatalities', sublabel: 'YTD 2024' }
+    { key: 'stat1', value: counters.stat1, label: 'Legal Actions (Single Day)', sublabel: 'Dec 2024 Operation', suffix: '' },
+    { key: 'stat2', value: counters.stat2, label: 'DUI Arrests', sublabel: 'In 24 Hours', suffix: '' },
+    { key: 'stat3', value: counters.stat3, label: 'Road Accidents', sublabel: 'YTD 2024', suffix: '' },
+    { key: 'stat4', value: counters.stat4, label: 'Fatalities', sublabel: 'YTD 2024', suffix: '' }
   ];
 
   const services = [
@@ -238,26 +264,26 @@ export default function DrinkDriveWebsite() {
     }
   ];
 
-  const testimonials = [
+    const testimonials = [
     {
-      name: 'Ravi Perera',
+      name: 'Lahiru Daulagala',
       location: 'Colombo',
       rating: 5,
-      text: 'Excellent service! The driver was professional and got us home safely after our celebration.'
+      text: 'I recently used Drink and Drive , and I was thoroughly impressed with their professionalism and efficiency. The driver arrived promptly, was courteous, and ensured a smooth and safe ride home. Their service is a lifesaver for anyone who wants to enjoy a night out without worrying about driving under the influence.'
     },
     {
-      name: 'Sarah Fernando',
-      location: 'Kandy',
+      name: 'Manu Vishwa',
+      location: 'Colombo',
       rating: 5,
-      text: 'Very reliable and affordable. I use Drink & Drive every weekend. Highly recommended!'
+      text: 'I had an outstanding experience with Drink and Drive today when I needed a driver the most. Their prompt response, professionalism, and dedication to safety were truly impressive. The driver was courteous, well-trained, and ensured I reached my destination smoothly and securely.'
     },
     {
-      name: 'Dinesh Silva',
-      location: 'Galle',
+      name: 'Sesath De Costa',
+      location: 'Colombo',
       rating: 5,
-      text: 'Peace of mind knowing I can enjoy my evening and still get home safely. Great team!'
+      text: 'This is a great service for anyone who wants to enjoy a night out without worrying about getting home safely. Highly recommend for responsible and stress-free travel after a party or event! The driver was professional, punctual, and ensured a smooth and safe ride home. Would definitely use it again. Safe, reliable, and worth it!'
     }
-  ];
+  ]
 
   const handleBookingChange = (field: string, value: string) => {
     setBookingData(prev => ({ ...prev, [field]: value }));
@@ -268,9 +294,48 @@ export default function DrinkDriveWebsite() {
     if (bookingStep < 3) {
       setBookingStep(bookingStep + 1);
     } else {
-      alert('Booking submitted! We will contact you shortly.');
-      setCurrentPage('home');
-      setBookingStep(1);
+      // Format the booking details for WhatsApp
+      const message = `🚗 *New Booking Request*\n\n` +
+        `📋 *Personal Information:*\n` +
+        `Name: ${bookingData.name}\n` +
+        `Phone: ${bookingData.phone}\n` +
+        `Email: ${bookingData.email || 'Not provided'}\n\n` +
+        `📍 *Trip Details:*\n` +
+        `Pickup: ${bookingData.pickupLocation}\n` +
+        `Destination: ${bookingData.destination}\n` +
+        `Date: ${bookingData.date}\n` +
+        `Time: ${bookingData.time}\n` +
+        `Passengers: ${bookingData.passengers}\n\n` +
+        `🚙 *Vehicle Type:* ${bookingData.vehicleType}\n\n` +
+        `${bookingData.specialRequests ? `📝 *Special Requests:*\n${bookingData.specialRequests}\n\n` : ''}` +
+        `Thank you for choosing Drink and Drive! 🙏`;
+      
+      // Encode the message for URL
+      const encodedMessage = encodeURIComponent(message);
+      
+      // Replace with your actual WhatsApp number (without + or spaces)
+      const whatsappNumber = '94777890983'; // Update this with your number
+      
+      // Open WhatsApp with the message
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+      
+      // Reset form and return to home
+      setTimeout(() => {
+        setCurrentPage('home');
+        setBookingStep(1);
+        setBookingData({
+          name: '',
+          phone: '',
+          email: '',
+          pickupLocation: '',
+          destination: '',
+          date: '',
+          time: '',
+          passengers: '1',
+          vehicleType: '',
+          specialRequests: ''
+        });
+      }, 500);
     }
   };
 
@@ -500,9 +565,9 @@ export default function DrinkDriveWebsite() {
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center space-x-2">
               <div className="text-red-600">
-                <ShieldIcon />
+                <ShieldIconf />
               </div>
-              <span className="text-2xl font-bold text-gray-900 dark:text-white">Drink & Drive</span>
+              <span className="text-2xl font-bold text-gray-900 dark:text-white">Drink and Drive</span>
             </div>
 
             <nav className="hidden md:flex items-center space-x-8">
@@ -574,10 +639,10 @@ export default function DrinkDriveWebsite() {
         </div>
       </section>
 
-      <section className="py-16 bg-red-600 text-white">
+      <section id="stats-section" className="py-16 bg-red-600 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center mb-4 animate-pulse">
               <AlertCircleIcon />
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">The Reality of Drunk Driving in Sri Lanka</h2>
@@ -587,25 +652,45 @@ export default function DrinkDriveWebsite() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
-              <Card key={index} className="bg-white/10 backdrop-blur border-white/20">
+              <Card 
+                key={stat.key} 
+                className="bg-white/10 backdrop-blur border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+                style={{
+                  animation: hasAnimated ? `slideUp 0.6s ease-out ${index * 0.1}s both` : 'none'
+                }}
+              >
                 <CardContent className="p-6 text-center">
-                  <div className="text-4xl font-bold mb-2">{stat.value}</div>
+                  <div className="text-5xl font-bold mb-2 bg-gradient-to-br from-white to-red-100 bg-clip-text text-transparent">
+                    {formatNumber(stat.value)}{stat.suffix}
+                  </div>
                   <div className="text-lg font-semibold mb-1">{stat.label}</div>
                   <div className="text-sm text-red-100">{stat.sublabel}</div>
                 </CardContent>
               </Card>
             ))}
           </div>
-          <div className="mt-12 max-w-4xl mx-auto bg-white/10 backdrop-blur rounded-lg p-8">
+          <div className="mt-12 max-w-4xl mx-auto bg-white/10 backdrop-blur rounded-lg p-8 border border-white/20 hover:bg-white/15 transition-all duration-300">
             <h3 className="text-2xl font-bold mb-4">Five-Year Overview (2020-2024)</h3>
             <p className="text-lg mb-4">
-              Over the past five years, Sri Lanka has witnessed <strong>12,140 lives lost</strong> in traffic accidents—averaging <strong>2,300 fatalities per year</strong>.
+              Over the past five years, Sri Lanka has witnessed <strong className="text-3xl">12,140</strong> lives lost in traffic accidents—averaging <strong className="text-2xl">2,300 fatalities per year</strong>.
             </p>
             <p className="text-red-100">
-              In just one day during December 2024, nationwide police operations resulted in 8,747 legal actions, including 251 arrests specifically for drunk driving.
+              In just one day during December 2024, nationwide police operations resulted in <strong className="text-white">8,747</strong> legal actions, including <strong className="text-white">251 arrests</strong> specifically for drunk driving.
             </p>
           </div>
         </div>
+        <style jsx>{`
+          @keyframes slideUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        `}</style>
       </section>
 
       <section id="services" className="py-20 bg-white dark:bg-gray-900">
@@ -663,16 +748,16 @@ export default function DrinkDriveWebsite() {
       <section id="about" className="py-20 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">About Drink & Drive</h2>
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">About Drink and Drive</h2>
             <div className="space-y-4 text-gray-700 dark:text-gray-300 text-lg">
               <p>
-                Founded with a mission to reduce drunk-driving incidents in Sri Lanka, Drink & Drive provides professional chauffeur services across the island. Unlike ordinary taxi services or ride-sharing options, we offer a private, professional chauffeur to drive you and your own vehicle safely home.
+                Founded with a mission to reduce drunk-driving incidents in Sri Lanka, Drink and Drive provides professional chauffeur services across the island. Unlike ordinary taxi services or ride-sharing options, we offer a private, professional chauffeur to drive you and your own vehicle safely home.
               </p>
               <p>
                 With over 9 years of experience and 25,000+ satisfied elite clients, our team of licensed, experienced drivers is available 24/7 to ensure you reach your destination safely. Whether you're attending a wedding, corporate event, or simply enjoying an evening out, we're here to provide reliable, discreet, and secure transportation.
               </p>
               <p className="font-semibold text-red-600">
-                Don't become a statistic. Choose Drink & Drive and make the responsible choice tonight.
+                Don't become a statistic. Choose Drink and Drive and make the responsible choice tonight.
               </p>
             </div>
           </div>
@@ -690,14 +775,14 @@ export default function DrinkDriveWebsite() {
                   <PhoneIcon />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Call Us</h3>
-                <p>+94 XX XXX XXXX</p>
+                <p>+94 77 789 0983</p>
               </div>
               <div>
                 <div className="w-12 h-12 mx-auto mb-4">
                   <MapPinIcon />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Location</h3>
-                <p>Colombo, Sri Lanka</p>
+                <p>58/4 16th Lane Ananda Balika Mawatha, Sri Jayawardenepura Kotte.</p>
               </div>
               <div>
                 <div className="w-12 h-12 mx-auto mb-4">
@@ -720,9 +805,9 @@ export default function DrinkDriveWebsite() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="text-red-600">
-                  <ShieldIcon />
+                  <ShieldIconf />
                 </div>
-                <span className="text-xl font-bold">Drink & Drive</span>
+                <span className="text-xl font-bold">Drink and Drive</span>
               </div>
               <p className="text-gray-400">Your trusted chauffeur service in Sri Lanka</p>
             </div>
@@ -744,16 +829,16 @@ export default function DrinkDriveWebsite() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Drink & Drive. All rights reserved. | Making Sri Lankan roads safer, one ride at a time.</p>
+            <p>&copy; 2025 Drink and Drive. All rights reserved. | Making Sri Lankan roads safer, one ride at a time.</p>
           </div>
         </div>
       </footer>
 
       <a
-        href="https://wa.me/94XXXXXXXXX"
+        href="https://wa.me/94777890983"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition-all hover:scale-110 z-50"
+        className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition-all hover:scale-110 z-50 animate-bounce"
         aria-label="Chat on WhatsApp"
       >
         <WhatsAppIcon />
