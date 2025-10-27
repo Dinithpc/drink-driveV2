@@ -355,14 +355,14 @@ export default function DrinkDriveWebsite() {
               <div key={step} className="flex-1 flex items-center">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
                   bookingStep >= step 
-                    ? 'bg-red-600 text-white' 
+                    ? 'bg-orange-400 text-white' 
                     : 'bg-gray-300 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
                 }`}>
                   {step}
                 </div>
                 {step < 3 && (
                   <div className={`flex-1 h-1 mx-2 ${
-                    bookingStep > step ? 'bg-red-600' : 'bg-gray-300 dark:bg-gray-700'
+                    bookingStep > step ? 'bg-orange-400' : 'bg-gray-300 dark:bg-gray-700'
                   }`} />
                 )}
               </div>
@@ -382,7 +382,7 @@ export default function DrinkDriveWebsite() {
                         required
                         value={bookingData.name}
                         onChange={(e) => handleBookingChange('name', e.target.value)}
-                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Enter your full name"
                       />
                     </div>
@@ -393,7 +393,7 @@ export default function DrinkDriveWebsite() {
                         required
                         value={bookingData.phone}
                         onChange={(e) => handleBookingChange('phone', e.target.value)}
-                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="+94 XX XXX XXXX"
                       />
                     </div>
@@ -403,7 +403,7 @@ export default function DrinkDriveWebsite() {
                         type="email"
                         value={bookingData.email}
                         onChange={(e) => handleBookingChange('email', e.target.value)}
-                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -420,7 +420,7 @@ export default function DrinkDriveWebsite() {
                         required
                         value={bookingData.pickupLocation}
                         onChange={(e) => handleBookingChange('pickupLocation', e.target.value)}
-                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Enter pickup address"
                       />
                     </div>
@@ -431,7 +431,7 @@ export default function DrinkDriveWebsite() {
                         required
                         value={bookingData.destination}
                         onChange={(e) => handleBookingChange('destination', e.target.value)}
-                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Enter destination address"
                       />
                     </div>
@@ -443,7 +443,7 @@ export default function DrinkDriveWebsite() {
                           required
                           value={bookingData.date}
                           onChange={(e) => handleBookingChange('date', e.target.value)}
-                          className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                          className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         />
                       </div>
                       <div>
@@ -453,7 +453,7 @@ export default function DrinkDriveWebsite() {
                           required
                           value={bookingData.time}
                           onChange={(e) => handleBookingChange('time', e.target.value)}
-                          className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                          className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         />
                       </div>
                     </div>
@@ -463,7 +463,7 @@ export default function DrinkDriveWebsite() {
                         required
                         value={bookingData.passengers}
                         onChange={(e) => handleBookingChange('passengers', e.target.value)}
-                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                       >
                         <option value="1">1 Passenger</option>
                         <option value="2">2 Passengers</option>
@@ -487,8 +487,8 @@ export default function DrinkDriveWebsite() {
                             onClick={() => handleBookingChange('vehicleType', type)}
                             className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
                               bookingData.vehicleType === type
-                                ? 'border-red-600 bg-red-50 dark:bg-red-900/20'
-                                : 'border-gray-300 dark:border-gray-600 hover:border-red-400'
+                                ? 'border-orange-400 bg-red-50 dark:bg-red-900/20'
+                                : 'border-gray-300 dark:border-gray-600 hover:border-orange-200'
                             }`}
                           >
                             <div className="font-semibold dark:text-white">{type}</div>
@@ -508,7 +508,7 @@ export default function DrinkDriveWebsite() {
                         value={bookingData.specialRequests}
                         onChange={(e) => handleBookingChange('specialRequests', e.target.value)}
                         rows={4}
-                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-red-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         placeholder="Any special requirements or notes..."
                       />
                     </div>
@@ -528,7 +528,7 @@ export default function DrinkDriveWebsite() {
                   )}
                   <Button
                     type="submit"
-                    className="flex-1 bg-red-600 hover:bg-red-700"
+                    className="flex-1 bg-orange-400 hover:bg-orange-500"
                   >
                     {bookingStep === 3 ? 'Confirm Booking' : 'Continue'}
                   </Button>
@@ -540,7 +540,7 @@ export default function DrinkDriveWebsite() {
           <div className="mt-8 text-center">
             <button
               onClick={() => setCurrentPage('home')}
-              className="text-red-600 hover:text-red-700 font-medium"
+              className="text-orange-400 hover:text-red-700 font-medium"
             >
               ← Back to Home
             </button>
@@ -564,18 +564,18 @@ export default function DrinkDriveWebsite() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             <div className="flex items-center space-x-2">
-              <div className="text-red-600">
+              <div className="text-orange-400">
                 <ShieldIconf />
               </div>
               <span className="text-2xl font-bold text-gray-900 dark:text-white">Drink and Drive</span>
             </div>
 
             <nav className="hidden md:flex items-center space-x-8">
-              <a href="#home" className="text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition">Home</a>
-              <a href="#about" className="text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition">About</a>
-              <a href="#services" className="text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition">Services</a>
-              <a href="#testimonials" className="text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition">Reviews</a>
-              <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition">Contact</a>
+              <a href="#home" className="text-gray-700 dark:text-gray-300 hover:text-orange-400 dark:hover:text-red-400 transition">Home</a>
+              <a href="#about" className="text-gray-700 dark:text-gray-300 hover:text-orange-400 dark:hover:text-red-400 transition">About</a>
+              <a href="#services" className="text-gray-700 dark:text-gray-300 hover:text-orange-400 dark:hover:text-red-400 transition">Services</a>
+              <a href="#testimonials" className="text-gray-700 dark:text-gray-300 hover:text-orange-400 dark:hover:text-red-400 transition">Reviews</a>
+              <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-orange-400 dark:hover:text-red-400 transition">Contact</a>
               <button
                 onClick={() => setIsDark(!isDark)}
                 className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
@@ -583,7 +583,7 @@ export default function DrinkDriveWebsite() {
               >
                 {isDark ? <SunIcon /> : <MoonIcon />}
               </button>
-              <Button onClick={() => setCurrentPage('booking')} className="bg-red-600 hover:bg-red-700">Book Now</Button>
+              <Button onClick={() => setCurrentPage('booking')} className="bg-orange-400 hover:bg-orange-500">Book Now</Button>
             </nav>
 
             <div className="flex items-center gap-2 md:hidden">
@@ -607,7 +607,7 @@ export default function DrinkDriveWebsite() {
               <a href="#services" className="block py-2 text-gray-700 dark:text-gray-300">Services</a>
               <a href="#testimonials" className="block py-2 text-gray-700 dark:text-gray-300">Reviews</a>
               <a href="#contact" className="block py-2 text-gray-700 dark:text-gray-300">Contact</a>
-              <Button onClick={() => setCurrentPage('booking')} className="w-full mt-4 bg-red-600 hover:bg-red-700">Book Now</Button>
+              <Button onClick={() => setCurrentPage('booking')} className="w-full mt-4 bg-orange-400 hover:bg-orange-500">Book Now</Button>
             </nav>
           )}
         </div>
@@ -616,17 +616,17 @@ export default function DrinkDriveWebsite() {
       <section id="home" className="pt-32 pb-20 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-block px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full text-sm font-semibold mb-6">
+            <div className="inline-block px-4 py-2 bg-red-100 dark:bg-red-900/30 text-orange-400 dark:text-red-400 rounded-full text-sm font-semibold mb-6">
               9+ Years Experience • 25,000+ Satisfied Clients
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-              Sri Lanka's Most Trusted <span className="text-red-600">Chauffeur Service</span>
+              Sri Lanka's Most Trusted <span className="text-orange-500">Chauffeur Service</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
               Your safety is our priority. We drive YOU and YOUR vehicle home safely. No strangers, no risks — just reliable, discreet, and secure service.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button onClick={() => setCurrentPage('booking')} size="lg" className="bg-red-600 hover:bg-red-700 text-lg px-8 py-6">
+              <Button onClick={() => setCurrentPage('booking')} size="lg" className="bg-orange-400 hover:bg-orange-500 text-lg px-8 py-6">
                 <PhoneIcon />
                 <span className="ml-2">Book a Ride Now</span>
               </Button>
@@ -639,7 +639,7 @@ export default function DrinkDriveWebsite() {
         </div>
       </section>
 
-      <section id="stats-section" className="py-16 bg-red-600 text-white">
+      <section id="stats-section" className="py-16 bg-orange-400 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <div className="flex justify-center mb-4 animate-pulse">
@@ -705,9 +705,9 @@ export default function DrinkDriveWebsite() {
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
-                <Card key={index} className="border-2 hover:border-red-600 transition-all hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
+                <Card key={index} className="border-2 hover:border-orange-400 transition-all hover:shadow-lg dark:bg-gray-800 dark:border-gray-700">
                   <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4 text-red-600">
+                    <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4 text-orange-400">
                       <Icon />
                     </div>
                     <h3 className="text-xl font-bold mb-2 dark:text-white">{service.title}</h3>
@@ -756,7 +756,7 @@ export default function DrinkDriveWebsite() {
               <p>
                 With over 9 years of experience and 25,000+ satisfied elite clients, our team of licensed, experienced drivers is available 24/7 to ensure you reach your destination safely. Whether you're attending a wedding, corporate event, or simply enjoying an evening out, we're here to provide reliable, discreet, and secure transportation.
               </p>
-              <p className="font-semibold text-red-600">
+              <p className="font-semibold text-orange-400">
                 Don't become a statistic. Choose Drink and Drive and make the responsible choice tonight.
               </p>
             </div>
@@ -764,7 +764,7 @@ export default function DrinkDriveWebsite() {
         </div>
       </section>
 
-      <section id="contact" className="py-20 bg-gradient-to-br from-red-600 to-red-700 text-white">
+      <section id="contact" className="py-20 bg-gradient-to-br from-orange-400 to-orange-500 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-bold mb-8">Ready to Book Your Safe Ride?</h2>
@@ -792,7 +792,7 @@ export default function DrinkDriveWebsite() {
                 <p>24/7 Service</p>
               </div>
             </div>
-            <Button onClick={() => setCurrentPage('booking')} size="lg" className="bg-white text-red-600 hover:bg-gray-100 text-lg px-12 py-6">
+            <Button onClick={() => setCurrentPage('booking')} size="lg" className="bg-white text-orange-400 hover:bg-gray-100 text-lg px-12 py-6">
               Book Your Ride Now
             </Button>
           </div>
@@ -804,7 +804,7 @@ export default function DrinkDriveWebsite() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="text-red-600">
+                <div className="text-orange-400">
                   <ShieldIconf />
                 </div>
                 <span className="text-xl font-bold">Drink and Drive</span>
@@ -838,7 +838,7 @@ export default function DrinkDriveWebsite() {
         href="https://wa.me/94777890983"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition-all hover:scale-110 z-50 animate-bounce"
+        className="fixed bottom-6 right-6 bg-orange-800 hover:bg-orange-900 text-white rounded-full p-4 shadow-2xl transition-all hover:scale-110 z-50 animate-bounce"
         aria-label="Chat on WhatsApp"
       >
         <WhatsAppIcon />
