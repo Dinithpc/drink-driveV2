@@ -119,7 +119,7 @@ const WhatsAppIcon = () => (
 export default function DrinkDriveWebsite() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const [currentPage, setCurrentPage] = useState('home');
   const [bookingStep, setBookingStep] = useState(1);
   const [hasAnimated, setHasAnimated] = useState(false);
@@ -458,18 +458,18 @@ export default function DrinkDriveWebsite() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2 dark:text-gray-200">Number of Passengers *</label>
+                      <label className="block text-sm font-medium mb-2 dark:text-gray-200">Number of Drivers *</label>
                       <select
                         required
                         value={bookingData.passengers}
                         onChange={(e) => handleBookingChange('passengers', e.target.value)}
                         className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-orange-400 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                       >
-                        <option value="1">1 Passenger</option>
-                        <option value="2">2 Passengers</option>
-                        <option value="3">3 Passengers</option>
-                        <option value="4">4 Passengers</option>
-                        <option value="5+">5+ Passengers</option>
+                        <option value="1">1 Driver</option>
+                        <option value="2">2 Drivers</option>
+                        <option value="3">3 Drivers</option>
+                        <option value="4">4 Drivers</option>
+                        <option value="5+">5+ Drivers</option>
                       </select>
                     </div>
                   </div>
@@ -576,17 +576,17 @@ export default function DrinkDriveWebsite() {
               <a href="#services" className="text-gray-700 dark:text-gray-300 hover:text-orange-400 dark:hover:text-red-400 transition">Services</a>
               <a href="#testimonials" className="text-gray-700 dark:text-gray-300 hover:text-orange-400 dark:hover:text-red-400 transition">Reviews</a>
               <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-orange-400 dark:hover:text-red-400 transition">Contact</a>
-              <button
+              {/* <button
                 onClick={() => setIsDark(!isDark)}
                 className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
                 aria-label="Toggle theme"
               >
                 {isDark ? <SunIcon /> : <MoonIcon />}
-              </button>
+              </button> */}
               <Button onClick={() => setCurrentPage('booking')} className="bg-orange-400 hover:bg-orange-500">Book Now</Button>
             </nav>
 
-            <div className="flex items-center gap-2 md:hidden">
+            {/* <div className="flex items-center gap-2 md:hidden">
               <button
                 onClick={() => setIsDark(!isDark)}
                 className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
@@ -597,7 +597,7 @@ export default function DrinkDriveWebsite() {
               <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 {isMenuOpen ? <XIcon /> : <MenuIcon />}
               </button>
-            </div>
+            </div> */}
           </div>
 
           {isMenuOpen && (
@@ -620,7 +620,7 @@ export default function DrinkDriveWebsite() {
               9+ Years Experience • 25,000+ Satisfied Clients
             </div>
             <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-              Sri Lanka's Most Trusted <span className="text-orange-500">Chauffeur Service</span>
+              Sri Lanka's Most Trusted <span className="text-orange-500">Driver Service</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
               Your safety is our priority. We drive YOU and YOUR vehicle home safely. No strangers, no risks — just reliable, discreet, and secure service.
